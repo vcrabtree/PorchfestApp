@@ -19,5 +19,4 @@ mail = Mail(app)
 bootstrap = Bootstrap(app)
 
 
-
-from app import routes, models, errors
+from app import routes, errors
