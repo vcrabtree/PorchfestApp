@@ -1,13 +1,53 @@
 {% extends "base.html" %}
 
 {% block content %}
-     <div class="row">
-        <div class="col-md-2">
-        </div>
-        <div class="col-md-8">
-            <h1>This is the Porchfest Home Page</h1>
-        </div>
-        <div class="col-md-2">
-        </div>
-     </div>
+    <html>
+        <head>
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <style>
+                body {
+                    background-color: #D9ADCD;
+                }
+                p {
+                    text-align: center;
+                    font-size: 45px;
+                    margin-top: 0px;
+                }
+            </style>
+        </head>
+        <body>
+        <br />
+        <h1><center><font face="lucida sans typewriter" size="40px">Ithaca Porchfest</font></center></h1>
+        <h1><center><font face="lucida sans typewriter">September 20, 2020</font></center></h1>
+        <br />
+
+            <p id="demo"></p>
+
+            <script>
+                var countDownDate = new Date("September 20, 2020 12:00:00").getTime();
+
+                var x = setInterval(function() {
+
+                var now = new Date().getTime();
+
+                var distance = countDownDate - now;
+
+                var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                document.getElementById("demo").innerHTML = days + " Days " + hours + " Hrs " +
+                minutes + " Mins " + seconds + " Secs";
+
+                if (distance < 0) {
+                    clearInterval(x);
+                    document.getElementById("demo").innerHTML = "EXPIRED";
+                }
+                }, 1000);
+            </script>
+
+            <h1><center>Insert carousel maybe? or youtube? some visual idk</center></h1>
+        </body>
+    </html>
 {% endblock %}
