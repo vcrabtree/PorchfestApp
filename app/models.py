@@ -75,8 +75,8 @@ class Porch(db.Model):
 
 
     #Should convert address into long and latitude within the function, to be figured out later when we start working with google maps API
-    def __init__(self, address):
-        self.address = address
+    # def __init__(self, address):
+    #     self.address = address
 
 class Event(db.Model):
     __tablename__ = 'Event'
