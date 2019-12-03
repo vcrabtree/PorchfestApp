@@ -14,8 +14,8 @@ def index():
 
 @app.route('/artists')
 def artists():
-    artist_list = Band.query.all()
-    return render_template('artists.html', title='Artists', artists=artist_list)
+    band_list = Band.query.all()
+    return render_template('artists.html', title='Artists', bands=band_list)
 
 
 @app.route('/login', methods=['GET', 'POST'])

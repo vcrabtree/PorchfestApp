@@ -1,16 +1,43 @@
 {% extends "base.html" %}
 
 {% block content %}
-    {% for artist in artists %}
-        <a href="{{ url_for('artist', name=artist.name) }}">
-            <div class="card" style="width: 18rem;">
-                <img src="..." class="card-img-top" alt="{{ artist.name }}">
+    <html>
+        <head>
+            <style>
+                .card-body {
+                    background-color: #D9ADCD;
+                    text-align: center;
+                }
+                h5 {
+                    font-family: Verdana;
+                    text-align: center;
+                    font-size: 20px;
+                    color: white;
+                }
+                p {
+                    text-align: center;
+                    font-size: 15px;
+                    color: white;
+                }
+            </style>
+        </head>
+        <body>
+            <h1><center><font face="lucida sans typewriter" size="30px">Artists</font></center></h1>
+            {% for band in bands %}
+            <div class="col-lg-4"><div align="center">
+            <div class="card" style="width: 40rem;">
                 <div class="card-body">
-                    <p class="card-text">{{ artist.name }}</p>
-                    <p class="card-text">{{ artist.bio }}</p>
+                    <h5 class="card-title">{{ band.name }}</h5>
+                    <p class="card-text">{{ band.bio }}</p>
+                    <a href="#" class="card-link">Read More</a>
                 </div>
             </div>
-        </a>
-    {% endfor %}
-
+            </div>
+            </div>
+            {% endfor %}
+            <br />
+            <br />
+            <br />
+        </body>
+    </html>
 {% endblock %}
