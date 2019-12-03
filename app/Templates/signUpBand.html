@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+    <h1>Create a New Artist</h1>
+    <form action="" method="post" novalidate>
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.bandName.label }}<br>
+            {{ form.bandName(size=32) }}<br>
+        </p>
+        <p>
+            {{ form.bio.label }}<br>
+            {{ form.bio(cols = "100", rows = "20") }}<br>
+        </p>
+        <p>
+            {{ form.image.label }}<br>
+            {{ form.image(size=32) }}<br>
+        </p>
+        <p>
+            {{ form.link.label }}<br>
+            {{ form.link(size=32) }}<br>
+        </p>
+        <p>
+            {{ form.address.label }}<br>
+            {{ form.address(size=32) }}<br>
+        </p>
+        <p>
+            {{ form.time.label }}<br>
+            {{ form.time }}<br>
+        </p>
+        <p>{{ form.submit() }}</p>
+    </form>
+{% endblock %}

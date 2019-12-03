@@ -1,6 +1,6 @@
 from flask import render_template, flash, redirect, url_for, request
 from flask_login import login_user, logout_user, current_user, login_required
-from app.forms import LoginForm, RegistrationForm
+from app.forms import LoginForm, RegistrationForm, NewBandForm
 from app.models import *
 from app import app, db
 import pandas as pd
@@ -104,6 +104,33 @@ def artist(name):
         print(events)
 
         return render_template('artistPage.html', title=name, band=band, events=events, porches=porches)
+
+
+@app.route('/signUpBand', methods = ['GET', 'POST'])
+def createNewBand():
+    form = NewBandForm()
+    if form.validate_on_submit():
+        if (db.session.query(Band).filter_by(name = form.bandName.data).first()):
+            flash("Band name already in use")
+            return render_template('signUpBand.html', title = "Sign Up For Porchfest", form = form)
+        flash('New Band Created: {}, '.format(
+            form.bandName.data))
+        band = Band(form.bandName.data, form.bio.data, form.image.data, form.link.data)
+        db.session.add(band)
+        db.session.commit()
+        if not db.session.query(Porch).filter_by(address = form.address.data).first():
+            porch = Porch(form.address.data, 0, 0)
+            db.session.add(porch)
+            db.session.commit()
+        else:
+            db.session.query(Porch).filter_by(address = form.address.data).first()
+        event = Event(form.time.data, band.id, porch.id)
+
+        list = db.session.query(Band).all()
+
+        return render_template('artists.html', title="Artists", bands=list)
+
+    return render_template('signUpBand.html', title = "Sign Up For Porchfest", form = form)
 
 
 
