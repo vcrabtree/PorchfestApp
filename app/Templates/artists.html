@@ -32,7 +32,7 @@
                 <div class="card-body">
                     <h5 class="card-title">{{ band.name }}</h5>
                     <p class="card-text">{{ band.bio }}</p>
-                    <a href="#" class="card-link">Read More</a>
+                    <a href="{{ url_for('artist', name=band.name) }}" class="card-link">Read More</a>
                 </div>
             </div>
             </div>
