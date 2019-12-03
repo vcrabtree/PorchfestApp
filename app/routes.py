@@ -56,6 +56,7 @@ def register():
         return redirect(url_for('login'))
     return render_template('register.html', title='Register', form=form)
 
+
 @app.route('/reset_db')
 def reset_db():
     flash("Resetting database: deleting old data and repopulating with dummy data")
