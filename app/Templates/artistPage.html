@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+    <h1>{{  band.name }}</h1>
+    <div><p><b>Bio: </b> {{ band.bio }}</p></div>
+    <h2> Performance: </h2>
+
+
+    {% for event in events %}
+        {% for porch in porches %}
+            {% if porch.id == event.porchID %}
+                <div><p><b> Location: </b>{{ porch.address }}</p></div>
+            {% endif %}
+        {% endfor %}
+        <div><p><b> Time: </b>{{ event.time }}</p></div>
+    {% endfor %}
+
+    {% if not events %}
+        <div><p><b>No known events</b></p></div>
+    {%  endif %}
+{% endblock %}
