@@ -134,4 +134,11 @@ def createNewBand():
     return render_template('signUpBand.html', title = "Sign Up For Porchfest", form = form)
 
 
+@app.route('/favoriteArtists')
+def favoriteArtists():
+    band_list = Band.query.all()
+    favorite_list = list()
+    for band in band_list:
+        # if favorite is true, append to favorite_list
+    return render_template('favoriteArtists.html', title='Favorite Artists', bands=favorite_list)
 

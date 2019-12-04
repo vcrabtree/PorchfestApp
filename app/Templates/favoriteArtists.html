@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <html>
+        <head>
+            <style>
+                body {
+                    background-color: #D9ADCD;
+                }
+                .card-body {
+                    background-color: white;
+                    text-align: center;
+                }
+                h5 {
+                    font-family: Verdana;
+                    text-align: center;
+                    font-size: 20px;
+                    color: black;
+                }
+                p {
+                    text-align: center;
+                    font-size: 15px;
+                    color: black;
+                }
+                .card {
+                     min-height: 200px;
+                }
+            </style>
+        </head>
+        <body>
+            <h1><center><font face="lucida sans typewriter" size="30px">Favorite Artists</font></center></h1>
+            {% for band in bands %}
+            <div class="col-lg-4"><div align="center">
+            <div class="card" style="width: 40rem;">
+                <div class="card-body">
+                    <h5 class="card-title">{{ band.name }}</h5>
+                    <p class="card-text">{{ band.bio }}</p>
+                    <a href="{{ url_for('artist', name=band.name) }}" class="card-link">Read More</a>
+                </div>
+            </div>
+            </div>
+            </div>
+            {% endfor %}
+            <br />
+            <br />
+            <br />
+        </body>
+    </html>
+{% endblock %}
