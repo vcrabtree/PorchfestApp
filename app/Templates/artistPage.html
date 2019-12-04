@@ -1,9 +1,14 @@
 {% extends "base.html" %}
 
 {% block app_content %}
+    <style>
+        body {
+            background-color: #D9ADCD;
+        }
+    </style>
     <h1>{{  band.name }}</h1>
     <div><p><b>Bio: </b> {{ band.bio }}</p></div>
-    <h2> Performance: </h2>
+    <h3>Performance:</h3>
 
 
     {% for event in events %}
