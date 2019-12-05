@@ -1,5 +1,7 @@
-from flask import render_template, flash, redirect, url_for, request
+from flask import render_template, flash, redirect, url_for, request, session
 from flask_login import login_user, logout_user, current_user, login_required
+from werkzeug.urls import url_parse
+
 from app.forms import LoginForm, RegistrationForm, NewBandForm
 from app.models import *
 from app import app, db
@@ -136,9 +138,10 @@ def createNewBand():
 
 @app.route('/favoriteArtists')
 def favoriteArtists():
-    band_list = Band.query.all()
-    favorite_list = list()
-    for band in band_list:
-        # if favorite is true, append to favorite_list
+    u2bs = db.session.query(UserToBand).filter_by(userID=current_user.get_id(), favorite=True).all()
+    favorite_list = []
+    for u2b in u2bs:
+        band = db.session.query(Band).filter_by(id=u2b.bandID).first()
+        favorite_list.append(band)
     return render_template('favoriteArtists.html', title='Favorite Artists', bands=favorite_list)
 

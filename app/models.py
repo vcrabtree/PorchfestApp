@@ -36,7 +36,7 @@ class UserToBand(db.Model):
     def __init__(self, userID, bandID, favorite, owns):
         self.userID = userID
         self.bandID = bandID
-        self.favorite = favortite
+        self.favorite = favorite
         self.owns = owns
 
 class Band(db.Model):
