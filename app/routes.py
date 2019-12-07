@@ -145,3 +145,8 @@ def favoriteArtists():
         favorite_list.append(band)
     return render_template('favoriteArtists.html', title='Favorite Artists', bands=favorite_list)
 
+
+@app.route('/maps')
+def maps():
+    return render_template('map.html', title='Maps')
+
