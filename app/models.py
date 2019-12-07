@@ -44,7 +44,7 @@ class Band(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(128), index=True, unique=True)
     bio = db.Column(db.String(1024))
-    image = db.Column(db.String(64), unique=True)
+    image = db.Column(db.String(64))
     songLink = db.Column(db.String(64))
 
     def __repr__(self):

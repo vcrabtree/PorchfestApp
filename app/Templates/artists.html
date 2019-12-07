@@ -27,11 +27,13 @@
         <body>
             <h1><center><font face="lucida sans typewriter" size="30px">Artists</font></center></h1>
             {% for band in bands %}
+
             <div class="col-lg-4"><div align="center">
             <div class="card" style="width: 40rem;">
                 <div class="card-body">
                     <h5 class="card-title">{{ band.name }}</h5>
                     <p class="card-text">{{ band.bio }}</p>
+
                     <a href="{{ url_for('artist', name=band.name) }}" class="card-link">Read More</a>
                 </div>
             </div>
