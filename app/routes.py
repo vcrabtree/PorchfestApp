@@ -6,6 +6,7 @@ from app.forms import LoginForm, RegistrationForm, NewBandForm
 from app.models import *
 from app import app, db
 import pandas as pd
+from app.utilities import encode, decode
 
 
 @app.route('/')
@@ -13,7 +14,7 @@ import pandas as pd
 def index():
     return render_template('index.html', title='Home')
 
-
+#adding encoding
 @app.route('/artists')
 def artists():
     band_list = Band.query.all()
@@ -99,12 +100,9 @@ def reset_db():
 
 @app.route('/artist/<name>')
 def artist(name):
-
         band = db.session.query(Band).filter_by(name=name).first()
         events = db.session.query(Event).join(Band, Band.id == Event.bandID).filter(Band.name == name).all()
         porches = db.session.query(Porch).join(Event, Event.porchID == Porch.id).join(Band, Band.id == Event.bandID).filter(Band.name == name).all()
-        print(porches)
-        print(events)
 
         return render_template('artistPage.html', title=name, band=band, events=events, porches=porches)
 
@@ -126,8 +124,13 @@ def createNewBand():
             db.session.add(porch)
             db.session.commit()
         else:
-            db.session.query(Porch).filter_by(address = form.address.data).first()
-        event = Event(form.time.data, band.id, porch.id)
+            porch = db.session.query(Porch).filter_by(address = form.address.data).first()
+        timing = datetime(2019, 9, 22, form.time.data.hour, form.time.data.minute)
+        event = Event(timing, band.id, porch.id)
+        userToBand = UserToBand(current_user.get_id(), band.id, 0, 1)
+        db.session.add(event)
+        db.session.add(userToBand)
+        db.session.commit()
 
         list = db.session.query(Band).all()
 

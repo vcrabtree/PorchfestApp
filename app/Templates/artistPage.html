@@ -23,4 +23,17 @@
     {% if not events %}
         <div><p><b>No known events</b></p></div>
     {%  endif %}
+
+    <div class="container">
+        <button type="button" class="btn btn-default">Favorite</button>
+    </div>
+
+    <script>
+    $(document).ready(function(){
+        $(".btn-default:first").click(function(){
+            $(this).button('toggle');
+        });
+    });
+</script>
+
 {% endblock %}
