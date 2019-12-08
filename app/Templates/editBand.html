@@ -1,13 +1,10 @@
 {% extends "base.html" %}
 
 {% block app_content %}
-    <h1><center><font face="lucida sans typewriter" size="30px">Sign Up Band</font></center></h1>
+    <h1><center><font face="lucida sans typewriter" size="30px">Edit Your Band</font></center></h1>
     <form action="" method="post" novalidate>
         {{ form.hidden_tag() }}
-        <p>
-            {{ form.bandName.label }}<br>
-            {{ form.bandName(size=32) }}<br>
-        </p>
+        <h1>{{ band }}</h1>
         <p>
             {{ form.bio.label }}<br>
             {{ form.bio(cols = "100", rows = "20") }}<br>

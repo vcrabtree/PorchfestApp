@@ -40,3 +40,12 @@ class NewBandForm(FlaskForm):
     address = StringField('Address of your porch', validators=[DataRequired()])
     time = TimeField('Time of performance', validators=[DataRequired()])
     submit = SubmitField('Sign Up')
+
+
+class EditBandForm(FlaskForm):
+    bio = TextAreaField("Description", validators=[DataRequired()])
+    image = StringField('Image (Test for now)', validators=[DataRequired()])
+    link = StringField('Upload a link to one of your songs')
+    address = StringField('Address of your porch', validators=[DataRequired()])
+    time = TimeField('Time of performance', validators=[DataRequired()])
+    submit = SubmitField('Sign Up')

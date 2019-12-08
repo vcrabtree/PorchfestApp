@@ -2,7 +2,7 @@ from flask import render_template, flash, redirect, url_for, request, session
 from flask_login import login_user, logout_user, current_user, login_required
 from werkzeug.urls import url_parse
 
-from app.forms import LoginForm, RegistrationForm, NewBandForm
+from app.forms import LoginForm, RegistrationForm, NewBandForm, EditBandForm
 from app.models import *
 from app import app, db
 import pandas as pd
@@ -152,4 +152,42 @@ def favoriteArtists():
 @app.route('/maps')
 def maps():
     return render_template('map.html', title='Maps')
+
+@app.route('/editBand', methods = ['GET', 'POST'])
+def editBand():
+    form = EditBandForm()
+    if current_user.is_anonymous:
+        flash("You must be logged in to edit your bands page")
+        return redirect(url_for('index'))
+    elif not db.session.query(UserToBand).filter_by(userID=current_user.get_id(), owns=True).first():
+        flash("You have not signed up any band")
+        return redirect(url_for('index'))
+    else:
+        u2b = db.session.query(UserToBand).filter_by(userID = current_user.get_id(), owns = True).first()
+        band = db.session.query(Band).filter_by(id = u2b.bandID).first()
+        if form.validate_on_submit():
+            band.bio = form.bio.data
+            band.image = form.image.data
+            band.link = form.link.data
+            db.session.add(band)
+            db.session.commit()
+            if not db.session.query(Porch).filter_by(address = form.address.data).first():
+                porch = Porch(form.address.data, 0, 0)
+                db.session.add(porch)
+                db.session.commit()
+            else:
+                porch = db.session.query(Porch).filter_by(address = form.address.data).first()
+            timing = datetime(2019, 9, 22, form.time.data.hour, form.time.data.minute)
+            event = db.session.query(Event).filter_by(bandID=band.id).first()
+            event.bandID = band.id
+            event.porchID = porch.id
+            event.time = timing
+            db.session.add(event)
+            db.session.commit()
+
+            list = db.session.query(Band).all()
+
+            return render_template('artists.html', title="Artists", bands=list)
+
+    return render_template('editBand.html', title='Edit Band', form=form, band=band.name)
 
