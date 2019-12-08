@@ -2,7 +2,7 @@ from flask import render_template, flash, redirect, url_for, request, session
 from flask_login import login_user, logout_user, current_user, login_required
 from werkzeug.urls import url_parse
 
-from app.forms import LoginForm, RegistrationForm, NewBandForm, EditBandForm
+from app.forms import LoginForm, RegistrationForm, NewBandForm
 from app.models import *
 from app import app, db
 import pandas as pd
@@ -148,6 +148,11 @@ def favoriteArtists():
         favorite_list.append(band)
     return render_template('favoriteArtists.html', title='Favorite Artists', bands=favorite_list)
 
+
+@app.route('/maps')
+def maps():
+    return render_template('map.html', title='Maps')
+
 @app.route('/editBand', methods = ['GET', 'POST'])
 def editBand():
     form = EditBandForm()
@@ -185,3 +190,4 @@ def editBand():
             return render_template('artists.html', title="Artists", bands=list)
 
     return render_template('editBand.html', title='Edit Band', form=form, band=band.name)
+

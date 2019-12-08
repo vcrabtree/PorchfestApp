@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+<html>
+    <body>
+        <h1><center><font face="lucida sans typewriter" size="30px">Map of Porchfest</font></center></h1>
+        <br />
+        <div align="center">
+        <div id="googleMap" style="width:75%;height:500px;"></div>
+        <script>
+            function myMap() {
+                var mapProp= {
+                    center:new google.maps.LatLng(42.4406284,-76.4966071),
+                    zoom:15,
+                };
+                var map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
+            }
+        </script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDxuofnsjysVan30fo1N4Ct0RD1O7AGn_k&callback=myMap"></script>
+        </div>
+    </body>
+</html>
+{% endblock %}
