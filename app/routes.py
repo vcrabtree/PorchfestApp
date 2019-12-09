@@ -98,13 +98,14 @@ def reset_db():
     return render_template('index.html', title='Home')
 
 
-@app.route('/artist/<name>')
+@app.route('/artist/<name>', methods = ['GET', 'POST'])
 def artist(name):
-        band = db.session.query(Band).filter_by(name=name).first()
-        events = db.session.query(Event).join(Band, Band.id == Event.bandID).filter(Band.name == name).all()
-        porches = db.session.query(Porch).join(Event, Event.porchID == Porch.id).join(Band, Band.id == Event.bandID).filter(Band.name == name).all()
-
-        return render_template('artistPage.html', title=name, band=band, events=events, porches=porches)
+    # if request.method == "POST":
+    #     print("We made it")
+    band = db.session.query(Band).filter_by(name=name).first()
+    events = db.session.query(Event).join(Band, Band.id == Event.bandID).filter(Band.name == name).all()
+    porches = db.session.query(Porch).join(Event, Event.porchID == Porch.id).join(Band, Band.id == Event.bandID).filter(Band.name == name).all()
+    return render_template('artistPage.html', title=name, band=band, events=events, porches=porches)
 
 
 @app.route('/signUpBand', methods = ['GET', 'POST'])

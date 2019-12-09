@@ -49,3 +49,4 @@ class EditBandForm(FlaskForm):
     address = StringField('Address of your porch', validators=[DataRequired()])
     time = TimeField('Time of performance', validators=[DataRequired()])
     submit = SubmitField('Sign Up')
+

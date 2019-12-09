@@ -1,5 +1,37 @@
 {% extends "base.html" %}
 
+
+<head>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script>
+var myURL = "{{ url_for('artist/" + {{ band.name }} + "') }}";
+
+$(document).ready(function(){
+  $("button").click(function(){
+    $.ajax({
+        type : "POST",
+        url : myURL;
+    });
+    function(){
+        alert(Artist added to favorites);
+      }
+  });
+//     $("button").click(function(){
+//       $.post(myURL,
+//
+//       function(){
+//         alert(Artist added to favorites);
+//       });
+});
+
+
+
+});
+
+
+</script>
+</head>
+
 {% block app_content %}
     <style>
         body {
@@ -24,14 +56,7 @@
         <div><p><b>No known events</b></p></div>
     {%  endif %}
 
-    <form>
-        <input type="button" value="Favorite" onclick="msg()">
-    </form>
 
-    <script>
-        function msg() {
-            alert("Artist Added to Favorites");
-        }
-    </script>
+    <button>Favorite</button>
 
 {% endblock %}
