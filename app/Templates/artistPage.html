@@ -1,36 +1,65 @@
 {% extends "base.html" %}
 
 
-<head>
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+   {% block scripts %}
+   {{super()}}
+
+
+
 <script>
-var myURL = "{{ url_for('artist/" + {{ band.name }} + "') }}";
+
+// $(document).ready(function(){
+//   $("button").click(function(){
+//       alert("Hello!");
+//
+//       $.ajax({
+//         type : "POST",
+//         url : {{ url_for('artist', name = band.name) }};
+//     });
+//     // function(){
+//     //     alert(Artist added to favorites);
+//     //   }
+//   });
+// });
+//
+//
+//
+// });
+
+
 
 $(document).ready(function(){
-  $("button").click(function(){
+  $("favButton").click(function(){
+    alert("Artist added to favorites");
     $.ajax({
         type : "POST",
-        url : myURL;
+        url : "{{ url_for('artist', name = band.name) }}"
     });
-    function(){
-        alert(Artist added to favorites);
-      }
   });
-//     $("button").click(function(){
-//       $.post(myURL,
+});
+
+
+//     $('.favButton').click(function() {
 //
-//       function(){
-//         alert(Artist added to favorites);
-//       });
-});
+//         $.ajax({
+//             url: {{ url_for('artist', name = band.name) }},
+//             type: 'POST',
+//             data: {'submit':true},
+//             success: function (result) {
+//               alert("Artist added to favorites");
+//             }
+//         });
+//
+// });
 
 
-
-});
 
 
 </script>
-</head>
+
+    {% endblock %}
+
 
 {% block app_content %}
     <style>
@@ -57,6 +86,6 @@ $(document).ready(function(){
     {%  endif %}
 
 
-    <button>Favorite</button>
+<favButton><button>Favorite</button></favButton>
 
 {% endblock %}

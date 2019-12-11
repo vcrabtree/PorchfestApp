@@ -100,8 +100,8 @@ def reset_db():
 
 @app.route('/artist/<name>', methods = ['GET', 'POST'])
 def artist(name):
-    # if request.method == "POST":
-    #     print("We made it")
+    if request.method == "POST":
+        print("Posts Recieved")
     band = db.session.query(Band).filter_by(name=name).first()
     events = db.session.query(Event).join(Band, Band.id == Event.bandID).filter(Band.name == name).all()
     porches = db.session.query(Porch).join(Event, Event.porchID == Porch.id).join(Band, Band.id == Event.bandID).filter(Band.name == name).all()
