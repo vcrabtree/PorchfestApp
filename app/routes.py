@@ -7,6 +7,8 @@ from app.models import *
 from app import app, db
 import pandas as pd
 from app.utilities import encode, decode
+import geopy
+from geopy.geocoders import Nominatim
 
 
 @app.route('/')
@@ -72,9 +74,10 @@ def reset_db():
     df = pd.read_csv('app/2019PerformerSchedule.csv', index_col=0, sep=',')
     #add porches first
     porches = df['Porch Address'].unique()
-    print(porches[0])
     for i in range(porches.shape[0]):
-        porch = Porch(porches[i], 0, 0) #dummy long and lat for now
+        locator = Nominatim(user_agent="myGeocoder")
+        location = locator.geocode(str(porches[i]) + ", Ithaca, New York")
+        porch = Porch(porches[i], location.latitude, location.longitude) #dummy long and lat for now
         db.session.add(porch)
         db.session.commit()
     #Then artists
@@ -124,7 +127,9 @@ def createNewBand():
         db.session.add(band)
         db.session.commit()
         if not db.session.query(Porch).filter_by(address = form.address.data).first():
-            porch = Porch(form.address.data, 0, 0)
+            locator = Nominatim(user_agent="myGeocoder")
+            location = locator.geocode(str(form.address.data) + ", Ithaca, New York")
+            porch = Porch(form.address.data, location.latitude, location.longitude)
             db.session.add(porch)
             db.session.commit()
         else:
@@ -155,7 +160,8 @@ def favoriteArtists():
 
 @app.route('/maps')
 def maps():
-    return render_template('map.html', title='Maps')
+    porches = db.session.query(Porch).all()
+    return render_template('map.html', title='Maps', porches=porches)
 
 @app.route('/editBand', methods = ['GET', 'POST'])
 def editBand():
@@ -176,7 +182,9 @@ def editBand():
             db.session.add(band)
             db.session.commit()
             if not db.session.query(Porch).filter_by(address = form.address.data).first():
-                porch = Porch(form.address.data, 0, 0)
+                locator = Nominatim(user_agent="myGeocoder")
+                location = locator.geocode(str(form.address.data) + ", Ithaca, New York")
+                porch = Porch(form.address.data, location.latitude, location.longitude)
                 db.session.add(porch)
                 db.session.commit()
             else:

@@ -14,16 +14,21 @@
                     zoom:14,
                 };
                 var map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
-                var marker = new google.maps.Marker({position:new google.maps.LatLng(42.446991, -76.498465)});
+                var marker;
+
+
+
+                {% for porch in porches %}
+
+            marker = new google.maps.Marker({position:new google.maps.LatLng({{ porch.latitude }}, {{ porch.longitude }})});
                 marker.setMap(map);
-                marker = new google.maps.Marker({position:new google.maps.LatLng(42.449610, -76.500605)});
-                marker.setMap(map);
-                marker = new google.maps.Marker({position:new google.maps.LatLng(42.452049, -76.500976)});
-                marker.setMap(map);
-                marker = new google.maps.Marker({position:new google.maps.LatLng(42.445644, -76.499794)});
-                marker.setMap(map);
+
+            {% endfor %}
+
             }
         </script>
+
+
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDxuofnsjysVan30fo1N4Ct0RD1O7AGn_k&callback=myMap"></script>
         </div>
     </body>
